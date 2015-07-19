@@ -100,6 +100,7 @@ int symbolOutputBitCount = 0;
 int symbolErrorCount = 0;
 
 // Packet transmitting
+int radioOutputPacketsTransmitted = 0;
 int radioOutputBufferWritePos = 0;
 int radioOutputBufferReadPos = 0;
 int radioOutputDataLength = 0;
@@ -143,6 +144,8 @@ void initMinimedRF() {
   // Initialize first packet
   packets[0].dataStartIdx = 0;
   packets[0].length = 0;
+
+  radioOutputPacketsTransmitted = 0;
 
   setChannel(2);
 }
@@ -237,7 +240,9 @@ void doCommand(unsigned char cmd) {
   case CMD_GET_BUFFER_OVERFLOW_COUNT:
     U1DBUF = bufferOverflowCount;
     break;
-
+  case CMD_GET_PACKETS_SENT:
+    U1DBUF = radioOutputPacketsTransmitted;
+    break;
   default:
     U1DBUF = 0x22; // A marker for bad data
     break;
@@ -282,6 +287,10 @@ void handleRX1() {
       spiMode = SPI_MODE_CMD;
     }
   }
+}
+
+void incPacketsSent() {
+  radioOutputPacketsTransmitted++;
 }
 
 void dropCurrentPacket() {

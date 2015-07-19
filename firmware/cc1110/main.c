@@ -174,6 +174,7 @@ int main(void)
       while ((MARCSTATE & MARCSTATE_MARC_STATE) != MARC_STATE_TX);
       // Wait for radio to leave TX (usually after packet is sent)
       while ((MARCSTATE & MARCSTATE_MARC_STATE) == MARC_STATE_TX);
+      incPacketsSent();
     } else if (radioMode == RADIO_MODE_RX) {
       /* Put radio into RX. */
       RFST = RFST_SRX;

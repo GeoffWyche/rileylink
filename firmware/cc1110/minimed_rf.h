@@ -25,6 +25,7 @@ void setChannel(unsigned char newChannel);
 #define CMD_GET_PACKET_OVERFLOW_COUNT 14
 #define CMD_GET_BUFFER_OVERFLOW_COUNT 15
 #define CMD_GET_RSSI 16
+#define CMD_GET_PACKETS_SENT 17
 
 // Radio Mode
 #define RADIO_MODE_IDLE 0
@@ -65,5 +66,6 @@ extern unsigned char SLEEP;
 
 #endif
 
+void incPacketsSent();
 
 #endif
